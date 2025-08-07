@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КЛАССный праздник</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background-color: #fafafa;
+        }
+
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 1000;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none !important;
+            color: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .logo-link:hover,
+        .logo-link:visited,
+        .logo-link:focus,
+        .logo-link:active {
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+
+        .logo {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #6366f1;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(255, 255, 255, 0.3);
+        }
+
+        .logo img {
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .company-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none !important;
+        }
+
+        /* Выпадающее меню */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 10000;
+        }
+
+        .dropdown-button {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 14px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .dropdown-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+            font-size: 12px;
+        }
+
+        .dropdown.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            min-width: 360px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+            border-radius: 16px;
+            z-index: 9999;
+            margin-top: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .dropdown.active .dropdown-content {
+            display: block;
+            animation: fadeInDown 0.3s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-content a {
+            color: #374151;
+            padding: 16px 24px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #6366f1;
+            padding-left: 28px;
+        }
+
+        /* Основной контент */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: white;
+            border-radius: 20px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page h1 {
+            color: #4f4f4f;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .page h2 {
+            color: #6366f1;
+            margin: 0 0 1rem 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .page p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: #4b5563;
+            line-height: 1.7;
+        }
+
+        /* Навигация внутри страницы */
+        .page-nav {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .page-nav h3 {
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .page-nav a {
+            display: inline-block;
+            color: #6366f1;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            margin: 0.3rem;
+            border-radius: 25px;
+            background: white;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .page-nav a:hover {
+            background: #6366f1;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Секции для якорных ссылок */
+        .section {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #fafafa;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .section h2:first-child {
+            margin-top: 0;
+        }
+
+        .section p:first-child {
+            margin-top: 0;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+                padding: 0 1rem;
+            }
+
+            .company-name {
+                font-size: 24px;
+            }
+
+            .dropdown-content {
+                position: fixed;
+                top: 140px;
+                left: 1rem;
+                right: 1rem;
+                width: auto;
+                min-width: auto;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+                margin-top: 1rem;
+                border-radius: 16px;
+            }
+
+            .page h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Шапка -->
+    <header>
+        <div class="header-content">
+            <div class="logo-section">
+                <a href="#" onclick="showPage('home')" class="logo-link">
+                    <div class="logo">
+                        <img src="/logo.png" alt="Логотип" />
+                    </div>
+                    <div class="company-name">КЛАССный праздник</div>
+                </a>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropdown-button" onclick="toggleDropdown()">
+                    Сведения об образовательной деятельности
+                    <span class="dropdown-arrow">▼</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" onclick="showPage('basic-info')">Основные сведения</a>
+                    <a href="#" onclick="showPage('structure')">Структура и органы управления</a>
+                    <a href="#" onclick="showPage('documents')">Документы</a>
+                    <a href="#" onclick="showPage('education')">Образование</a>
+                    <a href="#" onclick="showPage('programms')">Программы</a>
+                    <a href="#" onclick="showPage('management')">Руководство</a>
+                    <a href="#" onclick="showPage('pedsostav')">Педагогический состав</a>
+                    <a href="#" onclick="showPage('equipment')">Материально-техническое обеспечение</a>
+                    <a href="#" onclick="showPage('payment')">Платные образовательные услуги</a>
+                    <a href="#" onclick="showPage('budget')">Финансово-хозяйственная деятельность</a>
+                    <a href="#" onclick="showPage('vacancies')">Вакантные места для приема (перевода)</a>
+                    <a href="#" onclick="showPage('scholarships')">Стипендии и меры поддержки</a>
+                    <a href="#" onclick="showPage('international')">Международное сотрудничество</a>
+                    <a href="#" onclick="showPage('food')">Организация питания</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <!-- Главная страница -->
+        <div id="home" class="page active">
+            <h1>Добро пожаловать!</h1>
+            <p>Компания «КЛАССный праздник» — эвент агентство по организации мероприятий и праздников для детей,
+                которому доверяют! <br>
+                Проводим веселые познавательные мероприятия для детей в классах!<br><br>Мы сотрудничаем с большими
+                площадками города, есть собственный лофт для организации незабываемых
+                праздников!<br>Сценарии наших программ уникальны и создаются педагогами и сценаристами с многолетним
+                опытом. Проекты
+                реализуются в разных городах РФ.<br>Строгий отбор актеров на позиции детских и подростковых ведущих.
+                Наши ведущие не только знают, как
+                увлечь детей любого возраста, но и профессионально тактичны в общении с их родителями и
+                учителями.<br><br>Работаем с полным пакетом документов и лицензией.
+                Имеем статус социального предприятия, а благодаря поддержки Президентского Фонда Культурных Инициатив
+                и Министерство экономического развития Новосибирской области с огромным удовольствием проводим регулярно
+                благотворительные проекты.</p>
+            <p>Для получения подробной информации об образовательной деятельности воспользуйтесь меню "Сведения об
+                образовательной деятельности" в шапке сайта.</p>
+        </div>
+
+        <!-- Основные сведения -->
+        <div id="basic-info" class="page">
+            <h1>Основные сведения</h1>
+
+            <div id="general-info" class="section">
+                <h2>Индивидуальный предприниматель Мухамедзянова Любовь Васильевна (ИП Мухамедзянова Л. В.)</h2>
+                <p>Дата регистрации в качестве индивидуального предпринимателя: 05.01.1996</p>
+                <p>Место нахождения (адрес регистрации): Россия, г. Новосибирск</p>
+                <p>ОГРНИП 305550301400481</p>
+                <p>ОКВЭД 85.41</p>
+                <p>Организационно правовая форма (индивидуальный предприниматель - физическое лицо), не предполагает
+                    наличие учредителей (участников)</p>
+            </div>
+
+            <div id="places" class="section">
+                <h2>Места осуществления образовательной деятельности:</h2>
+                <p>г. Новосибирск, мкр. Горский, д. 1</p>
+            </div>
+
+            <div id="contacts" class="section">
+                <h2>Контактная информация</h2>
+                <p><strong>Адрес:</strong> г. Новосибирск, мкр. Горский. д. 1</p>
+                <p><strong>Телефон:</strong> +7 999 300-38-59</p>
+                <p><strong>Email:</strong> info@language-school.ru</p>
+                <p><strong>Режим работы:</strong> Пн-Пт: 9:00-18:00</p>
+            </div>
+        </div>
+
+        <!-- Структура и органы управления -->
+        <div id="structure" class="page">
+            <h1>Структура и органы управления образовательной организацией</h1>
+
+            <div id="management-structure" class="section">
+                <h2>Структура управления</h2>
+                <p>Агентство по организации детских праздников - структурное подразделение Мухамедзяновой Любови
+                    Васильевны</p>
+                <p><strong>Местонахождение структурного подразделения:</strong></p>
+                <p>г. Новосибирск, мкр. Горский. д. 1</p>
+                <p>Сайт подразделения: </p>
+                <p>Положение о структурном подразделении</p>
+            </div>
+
+            <div id="bosses" class="section">
+                <h2>Руководство</h2>
+                <p><strong>Руководитель:</strong> Мухамедзянова Любовь Васильевна</p>
+                <p><strong>Контактный телефон:</strong> +7 999 300-38-59</p>
+                <p><strong>Электронная почта:</strong></p>
+            </div>
+        </div>
+
+        <!-- Остальные страницы можно добавить аналогично -->
+        <div id="documents" class="page">
+            <h1>Документы</h1>
+            <p>Устав - в силу организационно-правовой формы отсутствует;</p>
+            <p>Правила внутреннего распорядка обучающихся;</p>
+            <p>Правила внутреннего трудового распорядка - в силу закона отсутствуют (СМП, микропредприятие);</p>
+            <p>Локальные нормативные акты, предусмотренные частью 2 статьи 30 федерального закона №273-ФЗ "Об
+                образовании в Российской Федерации",по основным вопросам организации и осуществления образовательной
+                деятельности:</p>
+            <p>Порядок приема граждан на обучение по дополнительным образовательным программам на места с оплатой
+                стоимости обучения физическими и (или) юридическими лицами; </p>
+            <p>Положение о режиме занятий обучающихся; </p>
+            <p>Положение о формах, периодичности и порядке текущего контроля успеваемости и промежуточной аттестации
+                обучающихся; </p>
+            <p>Порядок и основания перевода, отчисления и восстановления обучающихся; </p>
+            <p>Порядок оформления возникновения, приостановления и прекращения отношений между организацией,
+                осуществляющей обучение и обучающимися и (или) родителями (законными представителями) обучающихся.</p>
+            <p></p>
+            <p><strong>Отчет о результатах самообследования</strong></p>
+        </div>
+
+        <div id="education" class="page">
+            <h1>Образование</h1>
+            <p>Информация о реализуемых образовательных программах...</p>
+            <p>Организация образовательного процесса регламентируется законодательством Российской Федерации, локальными
+                нормативными актами.</p>
+            <p>Путем целенаправленной организации учебного процесса, выбора форм, методов и средств обучения Школа
+                создает необходимые условия обучающимся для освоения реализуемых программ дополнительного образования.
+            </p>
+            <p>Содержание программ дополнительного образования, сроки и формы обучения по ним определяются
+                образовательной программой, утвержденной ИП Селезневой С.В., с учетом потребностей лиц и организаций, по
+                инициативе которых осуществляется обучение.</p>
+            <p>В Школе реализуется образовательная деятельность по дополнительным общеобразовательным (общеразвивающим)
+                программам.</p>
+            <p>Образовательная деятельность по дополнительным общеобразовательным программам направлена на:</p>
+            <p>- формирование и развитие творческих способностей обучающихся;</p>
+            <p>- удовлетворение индивидуальных потребностей обучающихся в интеллектуальном, нравственном,
+                художественно-эстетическом развитии и физическом совершенствовании;</p>
+            <p>- формирование культуры здорового и безопасного образа жизни, укрепление здоровья, а также на организацию
+                свободного времени обучающихся;</p>
+            <p>- адаптацию обучающихся к жизни в обществе;/p>
+            <p>- профессиональную ориентацию обучающихся;</p>
+            <p>- выявление, развитие и поддержку обучающихся, проявивших выдающиеся способности;</p>
+            <p>- удовлетворение иных образовательных потребностей и интересов обучающихся, не противоречащих
+                законодательству Российской Федерации, осуществляемых за пределами федеральных государственных
+                образовательных стандартов и федеральных государственных требований.</p>
+            <p>- Образовательная деятельность по реализуемым программам дополнительного образования осуществляется за
+                пределами федеральных государственных образовательных стандартов и федеральных государственных
+                требований. </p>
+            <p><strong>О РЕАЛИЗУЕМЫХ ОБРАЗОВАТЕЛЬНЫХ ПРОГРАММАХ</strong></p>
+        </div>
+
+        <div id="programms" class="page">
+            <h1>Образовательные программы</h1>
+            <p>Образовательные программы</p>
+        </div>
+
+        <div id="management" class="page">
+            <h1>Руководство</h1>
+            <p>Руководство</p>
+        </div>
+
+        <div id="pedsostav" class="page">
+            <h1>Педагогический состав</h1>
+            <p>Педагогический состав</p>
+        </div>
+
+        <div id="equipment" class="page">
+            <h1>Материально-техническое обеспечение и оснащенность образовательного процесса. Доступная среда.</h1>
+            <p>Обеспечение</p>
+        </div>
+
+        <div id="payment" class="page">
+            <h1>Платные образовательные услуги</h1>
+            <p>Платные образовательные услуги</p>
+        </div>
+
+        <div id="scholarships" class="page">
+            <h1>Стипендии</h1>
+            <p>Стипендии</p>
+        </div>
+
+        <div id="budget" class="page">
+            <h1>Финансово-хозяйственная деятельность</h1>
+            <p>Финансово-хозяйственная деятельность</p>
+        </div>
+
+        <div id="vacancies" class="page">
+            <h1>Вакантные места для приема</h1>
+            <p>Вакантные места для приема</p>
+        </div>
+
+        <!-- Остальные страницы по необходимости -->
+    </div>
+
+    <script>
+        // Управление выпадающим меню
+        function toggleDropdown() {
+            const dropdown = document.querySelector('.dropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        // Закрытие меню при клике вне его
+        document.addEventListener('click', function (event) {
+            const dropdown = document.querySelector('.dropdown');
+            if (!dropdown.contains(event.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+
+        // Переключение страниц
+        function showPage(pageId) {
+            // Скрыть все страницы
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Показать выбранную страницу
+            document.getElementById(pageId).classList.add('active');
+
+            // Закрыть выпадающее меню
+            document.querySelector('.dropdown').classList.remove('active');
+
+            // Прокрутить к началу страницы
+            window.scrollTo(0, 0);
+        }
+
+        // Плавная прокрутка к якорным ссылкам
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
