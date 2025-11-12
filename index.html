@@ -4,13 +4,354 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Развитие бизнес-навыков у детей</title>
+    <title>КЛАССный праздник</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background-color: #fafafa;
+        }
+
+        /* Шапка */
+        header {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%);
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            position: relative;
+            z-index: 1000;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none !important;
+            color: inherit;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+
+        .logo-link:hover,
+        .logo-link:visited,
+        .logo-link:focus,
+        .logo-link:active {
+            color: inherit !important;
+            text-decoration: none !important;
+        }
+
+        .logo {
+            width: 44px;
+            height: 44px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #6366f1;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(255, 255, 255, 0.3);
+        }
+
+        .logo img {
+            height: 32px;
+            width: 32px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .company-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f0f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none !important;
+        }
+
+        /* Выпадающее меню */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+            z-index: 10000;
+        }
+
+        .dropdown-button {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 14px 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            backdrop-filter: blur(10px);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .dropdown-button:hover {
+            background: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.4);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+            font-size: 12px;
+        }
+
+        .dropdown.active .dropdown-arrow {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            min-width: 360px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+            border-radius: 16px;
+            z-index: 9999;
+            margin-top: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .dropdown.active .dropdown-content {
+            display: block;
+            animation: fadeInDown 0.3s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .dropdown-content a {
+            color: #374151;
+            padding: 16px 24px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.2s ease;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        .dropdown-content a:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-content a:hover {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #6366f1;
+            padding-left: 28px;
+        }
+
+        /* Основной контент */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: white;
+            border-radius: 20px;
+            margin-top: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+            z-index: 1;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .page h1 {
+            color: #4f4f4f;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .page h2 {
+            color: #6366f1;
+            margin: 0 0 1rem 0;
+            font-size: 1.8rem;
+            font-weight: 600;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 0.5rem;
+        }
+
+        .page p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            color: #4b5563;
+            line-height: 1.7;
+            font-weight: 400 !important;
+            /* Принудительно устанавливаем нормальный вес шрифта */
+        }
+
+        .page p strong {
+            font-weight: 600;
+            /* Для текста в тегах strong делаем жирным */
+        }
+
+        /* Навигация внутри страницы */
+        .page-nav {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            padding: 1.5rem;
+            border-radius: 16px;
+            margin-bottom: 2rem;
+            border: 1px solid #e2e8f0;
+        }
+
+        .page-nav h3 {
+            margin-bottom: 1rem;
+            color: #1a1a1a;
+            font-weight: 600;
+        }
+
+        .page-nav a {
+            display: inline-block;
+            color: #6366f1;
+            text-decoration: none;
+            padding: 0.6rem 1.2rem;
+            margin: 0.3rem;
+            border-radius: 25px;
+            background: white;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 14px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .page-nav a:hover {
+            background: #6366f1;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+        }
+
+        /* Секции для якорных ссылок */
+        .section {
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: #fafafa;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .section h2:first-child {
+            margin-top: 0;
+        }
+
+        .section p:first-child {
+            margin-top: 0;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+                padding: 0 1rem;
+            }
+
+            .company-name {
+                font-size: 24px;
+            }
+
+            .dropdown-content {
+                position: fixed;
+                top: 140px;
+                left: 1rem;
+                right: 1rem;
+                width: auto;
+                min-width: auto;
+            }
+
+            .container {
+                padding: 2rem 1rem;
+                margin-top: 1rem;
+                border-radius: 16px;
+            }
+
+            .page h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -19,7 +360,10 @@
         <div class="header-content">
             <div class="logo-section">
                 <a href="#" onclick="showPage('home')" class="logo-link">
-                    <div class="company-name">Развитие бизнес-навыков у детей</div>
+                    <div class="logo">
+                        <img src="logo.png" alt="Логотип" />
+                    </div>
+                    <div class="company-name">КЛАССный праздник</div>
                 </a>
             </div>
 
@@ -52,70 +396,22 @@
     <div class="container">
         <!-- Главная страница -->
         <div id="home" class="page active">
-            <div style="padding: 30px; background: #f9f9f9; border-radius: 12px; border-left: 5px solid #6366f1;">
-                <h2 style="color: #333; margin-bottom: 20px;">Образовательный Курс «Развитие бизнес-навыков у детей»
-                </h2>
-                <p><strong>Предназначен для детей и подростков 6–16 лет</strong> и направлен на развитие
-                    предпринимательского мышления и ключевых жизненных компетенций.</p>
-
-                <h3>На нашем курсе ребенок научится:</h3>
-                <div style="columns: 2; column-gap: 30px; margin: 20px 0;">
-                    <ul style="padding-left: 20px;">
-                        <li>Финансовой грамотности</li>
-                        <li>Публичным выступлениям</li>
-                        <li>Формированию команды</li>
-                        <li>Лидерству</li>
-                        <li>Эмоциональному интеллекту</li>
-                        <li>Принятию взвешенных решений</li>
-                        <li>Целеполаганию</li>
-                        <li>Грамотному использованию соцсетей</li>
-                    </ul>
-                    <ul style="padding-left: 20px;">
-                        <li>Ораторскому мастерству</li>
-                        <li>Работе в команде</li>
-                        <li>Основам маркетинга и продаж</li>
-                        <li>Планированию своего графика</li>
-                        <li>Навыкам самопрезентации</li>
-                        <li>Оценке бизнес-идеи</li>
-                        <li>Деловому этикету</li>
-                        <li>Созданию правильного окружения</li>
-                    </ul>
-                </div>
-
-                <div
-                    style="background: #eef7ff; padding: 20px; border-radius: 10px; margin: 30px 0; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center;">
-                    <div><strong>Возраст учеников:</strong> 6–16 лет</div>
-                    <div><strong>Размер группы:</strong> до 6 детей</div>
-                    <div><strong>Длительность занятия:</strong> 45 минут</div>
-                </div>
-
-                <h3>Преподаватели</h3>
-                <p>Наши педагоги имеют профильное высшее образование, а также проходят дополнительную подготовку и
-                    аттестацию.</p>
-
-                <h3>Формы обучения</h3>
-                <div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 20px 0;">
-                    <div style="flex: 1; min-width: 300px; background: #f0f8ff; padding: 20px; border-radius: 10px;">
-                        <h4>Индивидуальное обучение</h4>
-                        <p>Если у вас сложное расписание, нужно быстро освоить тему или просто хочется персонального
-                            подхода — мы предложим индивидуальные занятия.</p>
-                    </div>
-                    <div style="flex: 1; min-width: 300px; background: #f0f8ff; padding: 20px; border-radius: 10px;">
-                        <h4>Обучение в группах</h4>
-                        <p>Самая доступная и популярная форма. Группы формируются по возрасту и уровню знаний. Занятия
-                            проходят по фиксированному расписанию.</p>
-                    </div>
-                </div>
-
-                <h3>Место проведения занятий</h3>
-                <p><strong>Адрес:</strong> г. Новосибирск, мкр. Горский, д. 1</p>
-                <ul>
-                    <li>Общая площадь — 100 м², основной зал — 50 м²</li>
-                    <li>Есть бесплатная парковка</li>
-                    <li>Пространство с умным зонированием: гардероб, кухня, туалеты</li>
-                    <li>5 минут пешком от метро «Студенческая»</li>
-                </ul>
-            </div>
+            <h1>Добро пожаловать!</h1>
+            <p>Компания «КЛАССный праздник» — эвент агентство по организации мероприятий и праздников для детей,
+                которому доверяют! <br>
+                Проводим веселые познавательные мероприятия для детей в классах!<br><br>Мы сотрудничаем с большими
+                площадками города, есть собственный лофт для организации незабываемых
+                праздников!<br>Сценарии наших программ уникальны и создаются педагогами и сценаристами с многолетним
+                опытом. Проекты
+                реализуются в разных городах РФ.<br>Строгий отбор актеров на позиции детских и подростковых ведущих.
+                Наши ведущие не только знают, как
+                увлечь детей любого возраста, но и профессионально тактичны в общении с их родителями и
+                учителями.<br><br>Работаем с полным пакетом документов и лицензией.
+                Имеем статус социального предприятия, а благодаря поддержки Президентского Фонда Культурных Инициатив
+                и Министерство экономического развития Новосибирской области с огромным удовольствием проводим регулярно
+                благотворительные проекты.</p>
+            <p>Для получения подробной информации об образовательной деятельности воспользуйтесь меню "Сведения об
+                образовательной деятельности" в шапке сайта.</p>
         </div>
 
         <!-- Основные сведения -->
@@ -137,6 +433,9 @@
                 <h2>Места осуществления образовательной деятельности:</h2>
                 <p>г. Новосибирск, мкр. Горский, д. 1</p>
                 <p></p>
+                <p>15 июня по 25 августа учебные комплексы закрыты для приема посетителей с целью подготовки к новому
+                    учебному году (переоборудование, ремонт, ревизия материально-технического оснащения, уборка и
+                    прочее)</p>
             </div>
 
             <div id="contacts" class="section">
@@ -144,13 +443,13 @@
                 <p><strong>Адрес:</strong> г. Новосибирск, мкр. Горский. д. 1</p>
                 <p><strong>Телефон:</strong> +7 999 300-38-51 (колл-центр)</p>
                 <p><strong>Электронная почта:</strong> chudesa54@yandex.ru</p>
-                <p><strong>Сайт:</strong> бизнес-навыки-дети.рф</p>
+                <p><strong>Сайт:</strong> сайт.рф</p>
                 <p><strong>Режим работы:</strong> Пн-Пт: 8:00-17:00</p>
                 <p><strong>График работы:</strong> круглогодично</p>
                 <p><strong></p>
                 <p>
                     <a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FYn53K%2BzRzII8ZSntdrMxF7qil4RqcU7MmP8vHR36fovDgwNQb%2BdZF6olJHmfjhsdq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=%D0%9B%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D1%8F%20%D0%9C%D0%B8%D0%BD%20%D0%9E%D0%B1%D1%80%20%D0%98%D0%9F%20%D0%9C%D1%83%D1%85%D0%B0%D0%BC%D0%B5%D0%B4%D0%B7%D1%8F%D0%BD%D0%BE%D0%B2%D0%B0%20%D0%9B%D0%92.pdf&nosw=1">
+                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FmJgFBtVdCkU%2F%2BEcrEIZfcwqsJkeE%2BHLDSmfyNqmrWc6pk9WK7%2B4EKYJ7Y6rE88k3q%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=%D0%92%D1%8B%D0%BF%D0%B8%D1%81%D0%BA%D0%B0%20%D0%B8%D0%B7%20%D1%80%D0%B5%D0%B5%D1%81%D1%82%D1%80%D0%B0%20%D0%BB%D0%B8%D1%86%D0%B5%D0%BD%D0%B7%D0%B8%D0%B9.pdf">
                         Лицензия выдана Министерством образования Новосибирской области 28.06.2024 г. приказ №485-Л,
                         регистрационный номер лицензии Л035-01199-54/01273323.
                     </a>
@@ -185,10 +484,10 @@
                 <p>Центр развития бизнес навыков у детей - структурное подразделение ИП Мухамедзянова Л.В.</p>
                 <p><strong>Местонахождение структурного подразделения (адрес учебного комплекса):</strong></p>
                 <p>г. Новосибирск, мкр. Горский. д. 1, 1 этаж</p>
-                <p>Сайт подразделения: бизнес-навыки-дети.рф</p>
+                <p>Сайт подразделения: сайт.рф</p>
                 <p>
                     <a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FlF7ebwG1Tj2hKSyEQyK%2FWHXSQXgOx5Y%2F0uoHW%2FSmtmCJDS61Fd9kJPjG%2FOc5Pspqq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2F%D0%A1%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%9C%D0%B8%D0%BD%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2F%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%2F%D0%AD%D0%A6%D0%9F%2F%D0%9D%D0%B0%20%D0%AD%D0%A6%D0%9F%2F%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%BD%D0%BE%D0%BC%20%D0%BF%D0%BE%D0%B4%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B8_%D0%98%D0%9F%20%D0%9C%D1%83%D1%85%D0%B0%D0%BC%D0%B5%D0%B4%D0%B7%D1%8F%D0%BD%D0%BE%D0%B2%D0%B0%20%D0%9B.%D0%92..pdf&name=%D0%9F%D0%BE%D0%BB%D0%BE%D0%B6%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BE%20%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%BD%D0%BE%D0%BC%20%D0%BF%D0%BE%D0%B4%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B8_%D0%98%D0%9F%20%D0%9C%D1%83%D1%85%D0%B0%D0%BC%D0%B5%D0%B4%D0%B7%D1%8F%D0%BD%D0%BE%D0%B2%D0%B0%20%D0%9B.%D0%92..pdf&nosw=1">
+                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2F%2B%2FfBDFe5OSsx5BuSPpaLp4LcOip048Wnhd5gxVMVMhXLmUFZhwKK3vI1j8iS2Sj9q%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=%D0%A1%D1%82%D1%80%D1%83%D0%BA_%D0%BF%D0%BE%D0%B4%D1%80%D0%B0%D0%B7%D0%B4%D0%B5%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5_%D0%98%D0%9F.pdf&nosw=1">
                         Положение о структурном подразделении
                     </a>
                 </p>
@@ -210,7 +509,7 @@
                 <p>Устав - в силу организационно-правовой формы отсутствует;</p>
                 <p>
                     <a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FlF7ebwG1Tj2hKSyEQyK%2FWHXSQXgOx5Y%2F0uoHW%2FSmtmCJDS61Fd9kJPjG%2FOc5Pspqq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2F%D0%A1%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%9C%D0%B8%D0%BD%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2F%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%2F%D0%AD%D0%A6%D0%9F%2F%D0%9D%D0%B0%20%D0%AD%D0%A6%D0%9F%2F%D0%9F%D0%A0%D0%90%D0%92%D0%98%D0%9B%D0%90%20%D0%92%D0%9D%D0%A3%D0%A2%D0%A0%D0%95%D0%9D%D0%9D%D0%95%D0%93%D0%9E%20%D0%A0%D0%90%D0%A1%D0%9F%D0%9E%D0%A0%D0%AF%D0%94%D0%9A%D0%90%20%D0%9E%D0%91%D0%A3%D0%A7%D0%90%D0%AE%D0%A9%D0%98%D0%A5%D0%A1%D0%AF.pdf&name=%D0%9F%D0%A0%D0%90%D0%92%D0%98%D0%9B%D0%90%20%D0%92%D0%9D%D0%A3%D0%A2%D0%A0%D0%95%D0%9D%D0%9D%D0%95%D0%93%D0%9E%20%D0%A0%D0%90%D0%A1%D0%9F%D0%9E%D0%A0%D0%AF%D0%94%D0%9A%D0%90%20%D0%9E%D0%91%D0%A3%D0%A7%D0%90%D0%AE%D0%A9%D0%98%D0%A5%D0%A1%D0%AF.pdf&nosw=1">
+                        href="https://docviewer.yandex.ru/?url=ya-disk-public%3A%2F%2F2sKKqgHfdH6xPGo7S4qULbTwXsUQWAYhTEaG9IqpMaVpXe2NTHmTl4WKbqvpW6Q4q%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=2024%20%D0%98%D0%9F%20%D0%9F%D1%80%D0%B0%D0%B2%D0%B8%D0%BB%D0%B0_%D0%B2%D0%BD%D1%83%D1%82%D1%80%D0%B5%D0%BD%D0%BD%D0%B5%D0%B3%D0%BE_%D1%80%D0%B0%D1%81%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%B0_%D0%BE%D0%B1%D1%83%D1%87%D0%B0%D1%8E%D1%89%D0%B8%D1%85%D1%81%D1%8F%20%D0%94%D0%9E.pdf">
                         Правила внутреннего распорядка обучающихся;
                     </a>
                 </p>
@@ -225,7 +524,7 @@
                 </p>
                 <p>
                     <a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FlF7ebwG1Tj2hKSyEQyK%2FWHXSQXgOx5Y%2F0uoHW%2FSmtmCJDS61Fd9kJPjG%2FOc5Pspqq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2F%D0%A1%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%9C%D0%B8%D0%BD%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2F%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%2F%D0%AD%D0%A6%D0%9F%2F%D0%9D%D0%B0%20%D0%AD%D0%A6%D0%9F%2F01_%D0%9F%D0%9E%D0%A0%D0%AF%D0%94%D0%9E%D0%9A%20%D0%BF%D1%80%D0%B8%D0%B5%D0%BC%D0%B0%20%D0%B3%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BF%D0%BE%20%D0%B4%D0%BE%D0%BF%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%20%D0%BD%D0%B0%20%D0%BC%D0%B5%D1%81%D1%82%D0%B0%20%D1%81%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9.pdf&name=01_%D0%9F%D0%9E%D0%A0%D0%AF%D0%94%D0%9E%D0%9A%20%D0%BF%D1%80%D0%B8%D0%B5%D0%BC%D0%B0%20%D0%B3%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5%20%D0%BF%D0%BE%20%D0%B4%D0%BE%D0%BF%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%20%D0%BD%D0%B0%20%D0%BC%D0%B5%D1%81%D1%82%D0%B0%20%D1%81%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%BE%D0%B9.pdf&nosw=1">
+                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FWu0iShP20%2BRMr1C8UEdXIraXCQYY1BTC47InNqdOVjdmHDwFQORLyBOTJfdl446yq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=2024%20%D0%98%D0%9F%20%D0%9F%D0%BE%D1%80%D1%8F%D0%B4%D0%BE%D0%BA%20%D0%BF%D1%80%D0%B8%D0%B5%D0%BC%D0%B0%20%D0%94%D0%9E.pdf&nosw=1">
                         Порядок приема граждан на обучение по дополнительным образовательным программам на места с
                         оплатой
                         стоимости обучения физическими и (или) юридическими лицами;
@@ -233,26 +532,26 @@
                 </p>
                 <p>
                     <a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FlF7ebwG1Tj2hKSyEQyK%2FWHXSQXgOx5Y%2F0uoHW%2FSmtmCJDS61Fd9kJPjG%2FOc5Pspqq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2F%D0%A1%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%9C%D0%B8%D0%BD%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2F%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%2F%D0%AD%D0%A6%D0%9F%2F%D0%9D%D0%B0%20%D0%AD%D0%A6%D0%9F%2F3_02_%D0%9F%D0%9E%D0%9B%D0%9E%D0%96%D0%95%D0%9D%D0%98%D0%95%20%D0%9E%20%D0%A0%D0%95%D0%96%D0%98%D0%9C%D0%95%20%D0%97%D0%90%D0%9D%D0%AF%D0%A2%D0%98%D0%99%20%D0%9E%D0%91%D0%A3%D0%A7%D0%90%D0%AE%D0%A9%D0%98%D0%A5%D0%A1%D0%AF.pdf&name=3_02_%D0%9F%D0%9E%D0%9B%D0%9E%D0%96%D0%95%D0%9D%D0%98%D0%95%20%D0%9E%20%D0%A0%D0%95%D0%96%D0%98%D0%9C%D0%95%20%D0%97%D0%90%D0%9D%D0%AF%D0%A2%D0%98%D0%99%20%D0%9E%D0%91%D0%A3%D0%A7%D0%90%D0%AE%D0%A9%D0%98%D0%A5%D0%A1%D0%AF.pdf&nosw=1">
+                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FDpIbMeJ3pHAccS3CD85T9ZsDj%2FJZzvUpKb3zKjs91qWuVbaZP0N3KrUo8maTX%2BWPq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=2024%20%D0%98%D0%9F%20%D0%A0%D0%B5%D0%B6%D0%B8%D0%BC%20%D0%94%D0%9E.pdf&nosw=1">
                         Положение о режиме занятий обучающихся;
                     </a>
                 </p>
                 <p>
                     <a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FlF7ebwG1Tj2hKSyEQyK%2FWHXSQXgOx5Y%2F0uoHW%2FSmtmCJDS61Fd9kJPjG%2FOc5Pspqq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2F%D0%A1%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%9C%D0%B8%D0%BD%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2F%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%2F%D0%AD%D0%A6%D0%9F%2F%D0%9D%D0%B0%20%D0%AD%D0%A6%D0%9F%2F3_03_%D0%9F%D0%9E%D0%9B%D0%9E%D0%96%D0%95%D0%9D%D0%98%D0%95%20%D0%BE%20%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%85%20%D0%BF%D0%B5%D1%80%D0%B8%D0%BE%D0%B4%D0%B8%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%20%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%B5%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8F%20%D1%83%D1%81%D0%BF%D0%B5%D0%B2%D0%B0%D0%B5%D0%BC%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%20%D0%B0%D1%82%D1%82%D0%B5%D1%81%D1%82%D0%B0%D1%86%D0%B8%D0%B8%20%D0%BE%D0%B1%D1%83%D1%87%D0%B0%D1%8E%D1%89%D0%B8%D1%85%D1%81%D1%8F.pdf&name=3_03_%D0%9F%D0%9E%D0%9B%D0%9E%D0%96%D0%95%D0%9D%D0%98%D0%95%20%D0%BE%20%D1%84%D0%BE%D1%80%D0%BC%D0%B0%D1%85%20%D0%BF%D0%B5%D1%80%D0%B8%D0%BE%D0%B4%D0%B8%D1%87%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%20%D0%BF%D0%BE%D1%80%D1%8F%D0%B4%D0%BA%D0%B5%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8F%20%D1%83%D1%81%D0%BF%D0%B5%D0%B2%D0%B0%D0%B5%D0%BC%D0%BE%D1%81%D1%82%D0%B8%20%D0%B8%20%D0%B0%D1%82%D1%82%D0%B5%D1%81%D1%82%D0%B0%D1%86%D0%B8%D0%B8%20%D0%BE%D0%B1%D1%83%D1%87%D0%B0%D1%8E%D1%89%D0%B8%D1%85%D1%81%D1%8F.pdf&nosw=1">
+                        href="https://docviewer.yandex.ru/?url=ya-disk-public%3A%2F%2FowHBHqPaqdqJNmFSWWcltk2V%2Bu7ZHX3PISHuMpnaDbRnSHz1GR%2FMtIYgMBEIr7ZNq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=2024%20%D0%98%D0%9F%20%D0%A4%D0%BE%D1%80%D0%BC%D1%8B%20%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8F%20%D0%94%D0%9E.pdf">
                         Положение о формах, периодичности и порядке текущего контроля успеваемости и промежуточной
                         аттестации обучающихся;
                     </a>
                 </p>
                 <p>
                     <a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FlF7ebwG1Tj2hKSyEQyK%2FWHXSQXgOx5Y%2F0uoHW%2FSmtmCJDS61Fd9kJPjG%2FOc5Pspqq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2F%D0%A1%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%9C%D0%B8%D0%BD%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2F%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%2F%D0%AD%D0%A6%D0%9F%2F%D0%9D%D0%B0%20%D0%AD%D0%A6%D0%9F%2F3_04_%D0%9F%D0%9E%D0%A0%D0%AF%D0%94%D0%9E%D0%9A%20%D0%98%20%D0%9E%D0%A1%D0%9D%D0%9E%D0%92%D0%90%D0%9D%D0%98%D0%AF%20%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D0%B0%20%D0%BE%D1%82%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%B2%D0%BE%D1%81%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BE%D0%B1%D1%83%D1%87%D0%B0%D1%8E%D1%89%D0%B8%D1%85%D1%81%D1%8F.pdf&name=3_04_%D0%9F%D0%9E%D0%A0%D0%AF%D0%94%D0%9E%D0%9A%20%D0%98%20%D0%9E%D0%A1%D0%9D%D0%9E%D0%92%D0%90%D0%9D%D0%98%D0%AF%20%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D0%B0%20%D0%BE%D1%82%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%B2%D0%BE%D1%81%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BE%D0%B1%D1%83%D1%87%D0%B0%D1%8E%D1%89%D0%B8%D1%85%D1%81%D1%8F.pdf&nosw=1">
+                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2F172pMOPHWVUjJeqV8bEEBP2SHD2dZ%2BSgV%2FoZbqK8AnvZ8gFjbasGFolerd%2Bp8%2Bitq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=2024%20%D0%98%D0%9F%20%D0%9F%D0%BE%D1%80%D1%8F%D0%B4%D0%BE%D0%BA%20%D0%BF%D0%B5%D1%80%D0%B5%D0%B2%D0%BE%D0%B4%D0%B0%20%D0%B8%20%D0%BE%D1%82%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%94%D0%9E.pdf">
                         Порядок и основания перевода, отчисления и восстановления обучающихся;
                     </a>
                 </p>
                 <p>
                     <a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FlF7ebwG1Tj2hKSyEQyK%2FWHXSQXgOx5Y%2F0uoHW%2FSmtmCJDS61Fd9kJPjG%2FOc5Pspqq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2F%D0%A1%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%9C%D0%B8%D0%BD%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2F%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%2F%D0%AD%D0%A6%D0%9F%2F%D0%9D%D0%B0%20%D0%AD%D0%A6%D0%9F%2F3_05_%D0%9F%D0%9E%D0%A0%D0%AF%D0%94%D0%9E%D0%9A%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B2%D0%BE%D0%B7%D0%BD%D0%B8%D0%BA%D0%BD%D0%BE%D0%B2%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BF%D1%80%D0%B8%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%80%D0%B5%D0%BA%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BE%D1%82%D0%BD%D0%BE%D1%88%D0%B5%D0%BD%D0%B8%D0%B9%20%D0%BC%D0%B5%D0%B6%D0%B4%D1%83%20%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B5%D0%B9%20%D0%B8%20%D1%80%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D0%B5%D0%BC.pdf&name=3_05_%D0%9F%D0%9E%D0%A0%D0%AF%D0%94%D0%9E%D0%9A%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B2%D0%BE%D0%B7%D0%BD%D0%B8%D0%BA%D0%BD%D0%BE%D0%B2%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BF%D1%80%D0%B8%D0%BE%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%B8%20%D0%BF%D1%80%D0%B5%D0%BA%D1%80%D0%B0%D1%89%D0%B5%D0%BD%D0%B8%D1%8F%20%D0%BE%D1%82%D0%BD%D0%BE%D1%88%D0%B5%D0%BD%D0%B8%D0%B9%20%D0%BC%D0%B5%D0%B6%D0%B4%D1%83%20%D0%BE%D1%80%D0%B3%D0%B0%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B5%D0%B9%20%D0%B8%20%D1%80%D0%BE%D0%B4%D0%B8%D1%82%D0%B5%D0%BB%D0%B5%D0%BC.pdf&nosw=1">
+                        href="https://docviewer.yandex.ru/?url=ya-disk-public%3A%2F%2F6JwBrAvJihwNDcguFhGFMYZuOlXzDAmpG1dDfgnZFJt6KDiUWG68A2xA0I4bfgeJq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=2024%20%D0%98%D0%9F%20%D0%9F%D0%BE%D1%80%D1%8F%D0%B4%D0%BE%D0%BA%20%D0%BE%D1%84%D0%BE%D1%80%D0%BC%20%D0%BE%D1%82%D0%BD%D0%BE%D1%88%D0%B5%D0%BD%D0%B8%D0%B9%20%D0%94%D0%9E.pdf">
                         Порядок оформления возникновения, приостановления и прекращения отношений между организацией,
                         осуществляющей обучение и обучающимися и (или) родителями (законными представителями)
                         обучающихся.
@@ -260,7 +559,7 @@
                 </p>
                 <p>
                     <a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FlF7ebwG1Tj2hKSyEQyK%2FWHXSQXgOx5Y%2F0uoHW%2FSmtmCJDS61Fd9kJPjG%2FOc5Pspqq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2F%D0%A1%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%9C%D0%B8%D0%BD%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2F%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%2F%D0%AD%D0%A6%D0%9F%2F%D0%9D%D0%B0%20%D0%AD%D0%A6%D0%9F%2F3_06_%D0%9E%D0%A2%D0%A7%D0%95%D0%A2%20%D0%9E%20%D0%A1%D0%90%D0%9C%D0%9E%D0%9E%D0%91%D0%A1%D0%9B%D0%95%D0%94%D0%9E%D0%92%D0%90%D0%9D%D0%98%D0%98.pdf&name=3_06_%D0%9E%D0%A2%D0%A7%D0%95%D0%A2%20%D0%9E%20%D0%A1%D0%90%D0%9C%D0%9E%D0%9E%D0%91%D0%A1%D0%9B%D0%95%D0%94%D0%9E%D0%92%D0%90%D0%9D%D0%98%D0%98.pdf&nosw=1">
+                        href="https://docviewer.yandex.ru/?url=ya-disk-public%3A%2F%2F9%2Fw8qE%2FYXP7%2FRIXBYUI4YnqKJtrUciR15wh3clTxuAEArSyDstP%2FH63DH%2FDYKfCsq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=2024%20%D0%98%D0%9F_%D0%A1%D0%B5%D0%BB%D0%B5%D0%B7%D0%BD%D0%B5%D0%B2%D0%B0%20%D0%9E%D1%82%D1%87%D0%B5%D1%82%20%D0%BE%20%D1%80%D0%B5%D0%B7%D1%83%D0%BB%D1%8C%D1%82%D0%B0%D1%82%D0%B0%D1%85%20%D1%81%D0%B0%D0%BC%D0%BE%D0%BE%D0%B1%D1%81%D0%BB%D0%B5%D0%B4%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F.pdf">
                         <strong>Отчет о результатах самообследования</strong>
                     </a>
                 </p>
@@ -269,14 +568,14 @@
 
         <div id="education" class="page">
             <h1>Образование</h1>
+            <p>Информация о реализуемых образовательных программах...</p>
             <p>Организация образовательного процесса регламентируется законодательством Российской Федерации, локальными
                 нормативными актами.</p>
-            <p>Путем целенаправленной организации учебного процесса, выбора форм, методов и средств обучения Центр
+            <p>Путем целенаправленной организации учебного процесса, выбора форм, методов и средств обучения Школа
                 создает необходимые условия обучающимся для освоения реализуемых программ дополнительного образования.
             </p>
             <p>Содержание программ дополнительного образования, сроки и формы обучения по ним определяются
-                образовательной программой, утвержденной ИП Мухамедзяновой Л.В., с учетом потребностей лиц и
-                организаций, по
+                образовательной программой, утвержденной ИП Селезневой С.В., с учетом потребностей лиц и организаций, по
                 инициативе которых осуществляется обучение.</p>
             <p>В Школе реализуется образовательная деятельность по дополнительным общеобразовательным (общеразвивающим)
                 программам.</p>
@@ -286,307 +585,56 @@
                 художественно-эстетическом развитии и физическом совершенствовании;</p>
             <p>- формирование культуры здорового и безопасного образа жизни, укрепление здоровья, а также на организацию
                 свободного времени обучающихся;</p>
-            <p>- адаптацию обучающихся к жизни в обществе;</p>
+            <p>- адаптацию обучающихся к жизни в обществе;/p>
             <p>- профессиональную ориентацию обучающихся;</p>
             <p>- выявление, развитие и поддержку обучающихся, проявивших выдающиеся способности;</p>
             <p>- удовлетворение иных образовательных потребностей и интересов обучающихся, не противоречащих
                 законодательству Российской Федерации, осуществляемых за пределами федеральных государственных
                 образовательных стандартов и федеральных государственных требований.</p>
-            <p>Образовательная деятельность по реализуемым программам дополнительного образования осуществляется за
+            <p>- Образовательная деятельность по реализуемым программам дополнительного образования осуществляется за
                 пределами федеральных государственных образовательных стандартов и федеральных государственных
                 требований. </p>
-            <p>
-                <a href="#" onclick="showPage('programms')">
-                    <strong>О РЕАЛИЗУЕМЫХ ОБРАЗОВАТЕЛЬНЫХ ПРОГРАММАХ</strong>
-                </a>
-            </p>
-
-            <!-- Двухколоночный блок -->
-            <div class="education-stats-grid">
-                <!-- Левая колонка -->
-                <div class="content-block">
-                    <h4>О численности обучающихся по реализуемым образовательным программам, общая численность до 100
-                        чел.:</h4>
-                    <div class="stats-list">
-                        <div class="stats-item">
-                            <span class="arrow">→</span>
-                            <span class="text">бюджетных ассигнований федерального бюджета - <strong>0</strong></span>
-                        </div>
-                        <div class="stats-item">
-                            <span class="arrow">→</span>
-                            <span class="text">бюджетов субъектов Российской Федерации - <strong>0</strong></span>
-                        </div>
-                        <div class="stats-item">
-                            <span class="arrow">→</span>
-                            <span class="text">местных бюджетов - <strong>0</strong></span>
-                        </div>
-                        <div class="stats-item">
-                            <span class="arrow">→</span>
-                            <span class="text">по договорам об оказании платных образовательных услуг -
-                                <strong>100%</strong></span>
-                        </div>
-                    </div>
-                    <p style="margin-top: 1.5rem;"><strong>Иностранные граждане</strong> - не обучаются.</p>
-                </div>
-
-                <!-- Правая колонка -->
-                <div class="content-block">
-                    <h4>Вакантные места для приема перевода обучающихся, общая численность - до 100 чел.:</h4>
-                    <div class="stats-list">
-                        <div class="stats-item">
-                            <span class="arrow">→</span>
-                            <span class="text">бюджетных ассигнований федерального бюджета - <strong>0</strong></span>
-                        </div>
-                        <div class="stats-item">
-                            <span class="arrow">→</span>
-                            <span class="text">бюджетов субъектов Российской Федерации - <strong>0</strong></span>
-                        </div>
-                        <div class="stats-item">
-                            <span class="arrow">→</span>
-                            <span class="text">местных бюджетов - <strong>0</strong></span>
-                        </div>
-                        <div class="stats-item">
-                            <span class="arrow">→</span>
-                            <span class="text">по договорам об оказании платных образовательных услуг -
-                                <strong>100%</strong></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            <p><strong>О РЕАЛИЗУЕМЫХ ОБРАЗОВАТЕЛЬНЫХ ПРОГРАММАХ</strong></p>
         </div>
 
         <div id="programms" class="page">
             <h1>Образовательные программы</h1>
-            <p>
-            <table>
-                <tr>
-                    <td>Уровень образования</td>
-                    <td>Дополнительное образование</td>
-                </tr>
-                <tr>
-                    <td>Подвид дополнительного образования</td>
-                    <td>Дополнительное образование детей и взрослых</td>
-                </tr>
-                <tr>
-                    <td>Наименование программы</td>
-                    <td>Дополнительная общеобразовательная (общеразвивающая) программа
-                        «Развитие бизнес навыков у детей»</td>
-                </tr>
-                <tr>
-                    <td>Программа</td>
-                    <td><a href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FvxYH%2B8dYO2POu55hydVantokSnKW%2F3tpSwjYDYzK9iBaxS3tzv7XI2luo65s08Oyq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=9_03_%D0%9F%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%206-16%D0%BB%D0%B5%D1%82%20%D1%80%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D1%8F%20%D0%B1%D0%B8%D0%B7%D0%BD%D0%B5%D1%81%20%D0%BD%D0%B0%D0%B2%D1%8B%D0%BA%D0%BE%D0%B2%20%D1%83%20%D0%B4%D0%B5%D1%82%D0%B5%D0%B8%CC%86.pdf"
-                            class="red">Подробнее</a></td>
-                </tr>
-                <tr>
-                    <td>Языки на которых осуществляется обучение</td>
-                    <td>Русский</td>
-                </tr>
-                <tr>
-                    <td>Нормативный срок обучения</td>
-                    <td><span class="red">144-432</span></td>
-                </tr>
-                <tr>
-                    <td>Форма обучения</td>
-                    <td>Очная</td>
-                </tr>
-            </table>
-            </p>
+            <p>Образовательные программы</p>
         </div>
 
         <div id="management" class="page">
             <h1>Руководство</h1>
-            <p>Руководитель: Мухамедзянова Любовь Васильевна</p>
-            <p>Контактный телефон: +7 999 300 38 51</p>
-            <p>Электронная почта: chudesa54@yandex.ru</p>
+            <p>Руководство</p>
         </div>
 
         <div id="pedsostav" class="page">
             <h1>Педагогический состав</h1>
-            <h2>Информация о персональном составе педагогических работников:</h2>
-            <table>
-                <tr>
-                    <th>№ п/п</th>
-                    <th>Наименование показателя</th>
-                    <th>Содержание</th>
-                </tr>
-                <tr>
-                    <td>1</td>
-                    <td>Фамилия, имя, отчество педагогического работника</td>
-                    <td>Мухамедзянова Любовь Васильевна</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>Занимаемая должность (должности)</td>
-                    <td>Педагог дополнительного образования</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>Преподаваемые учебные предметы, курсы, дисциплины (модули)</td>
-                    <td>Курс финансовой грамотности</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>Уровень (уровни) профессионального образования с указанием наименования направления подготовки и
-                        (или) специальности, в том числе научной, и квалификации</td>
-                    <td>Высшее профессиональное образование, Психолого-педагогическое, Бакалавр</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Ученая степень (при наличии)</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Ученое звание (при наличии)</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>7</td>
-                    <td>Сведения о повышении квалификации (за последние 3 года)</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>Сведения о профессиональной переподготовке (при наличии)</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>Сведения о продолжительности опыта (лет) работы в профессиональной сфере, соответствующей
-                        образовательной деятельности по реализации учебных предметов, курсов, дисциплин (модулей)</td>
-                    <td>3 года (общий стаж 22г)</td>
-                </tr>
-                <tr>
-                    <td>10</td>
-                    <td>Наименование общеобразовательной программы (общеобразовательных программ), код и наименование
-                        профессии, специальности (специальностей), направления (направлений) подготовки или укрупненной
-                        группы профессий, специальностей и направлений подготовки профессиональной образовательной
-                        программы высшего образования по программам бакалавриата, специалитета, магистратуры,
-                        ординатуры, ассистентуры-стажировки, шифр и наименование области науки, группы научных
-                        специальностей, научной специальности программы (программ) подготовки научных и
-                        научно-педагогических кадров в аспирантуре (адъюнктуре), в реализации которых участвует
-                        педагогический работник</td>
-                    <td>-</td>
-                </tr>
-            </table>
+            <p>Педагогический состав</p>
         </div>
 
         <div id="equipment" class="page">
             <h1>Материально-техническое обеспечение и оснащенность образовательного процесса. Доступная среда.</h1>
-            <p>В плане материально-технического обеспечения образовательной деятельности, в том числе в отношении
-                инвалидов и лиц с ограниченными возможностями здоровья «Центр развития бизнес навыков у детей»
-                оборудован:</p>
-            <p><strong>а)</strong> Оборудование учебного кабинета: полноразмерные письменные столы, магнитно-маркерные
-                доски, интерактивные доски;</p>
-            <p><strong>б)</strong> Оборудование объектов для проведения практических занятий — не предоставляется, в
-                программе обучения нет;</p>
-            <p><strong>в)</strong> Оборудование библиотек — не предусмотрено; обучающимся на период обучения
-                предлагаются книги для чтения и справочники из фонда учебно-методических пособий Центра;</p>
-            <p><strong>г)</strong> Оборудование объектов спорта — не предоставляется, в программе обучения нет;</p>
-            <p><strong>д)</strong> Оборудование средствами обучения и воспитания — Учебный комплекс оснащен
-                учебно-методическими материалами, которые необходимы для реализации программы обучения. Организованы
-                места для самоподготовки и отдыха персонала.</p>
-            <p><strong>е)</strong> Оборудование для доступа к информационным системам и
-                информационно-телекоммуникационным сетям — не предоставляется, в программе обучения нет;</p>
-            <p><strong>ж)</strong> Оборудование для функционирования электронных образовательных ресурсов, к которым
-                обеспечивается доступ обучающихся — не предоставляется, в программе обучения нет;</p>
-            <p><strong>з)</strong> Жилые помещения в общежитии, интернате — отсутствуют. Плата за проживание в общежитии
-                не взимается.</p>
-
-            <h2>О специальных условиях для получения образования инвалидами и лицами с ограниченными возможностями
-                здоровья:</h2>
-            <p>Предприниматель не организует образовательный процесс по адаптивным дополнительным общеобразовательным
-                программам. Специальные условия для получения образования инвалидами и лицами с ограниченными
-                возможностями здоровья отсутствуют.</p>
-            <p><strong>а)</strong> Оборудование для обеспечения доступа в здания, в том числе в общежитие, интернат,
-                приспособленное для использования инвалидами и лицами с ограниченными возможностями здоровья —
-                отсутствует;</p>
-            <p><strong>б)</strong> Специальные технические средства обучения коллективного и индивидуального пользования
-                инвалидов и лиц с ограниченными возможностями здоровья — отсутствует.</p>
-
-            <!-- Картинка во всю ширину с сохранением пропорций -->
-            <div style="text-align: center; margin: 30px 0;">
-                <img src="san-epid-zakl.jpg" alt="Санитарно-эпидемиологическое заключение"
-                    style="width: 100%; height: auto; max-width: 100%;">
-            </div>
+            <p>Обеспечение</p>
         </div>
 
         <div id="payment" class="page">
             <h1>Платные образовательные услуги</h1>
+            <p>Платные образовательные услуги</p>
+        </div>
 
-            <ul style="margin-bottom: 30px; padding-left: 20px;">
-                <li><a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FlF7ebwG1Tj2hKSyEQyK%2FWHXSQXgOx5Y%2F0uoHW%2FSmtmCJDS61Fd9kJPjG%2FOc5Pspqq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2F%D0%A1%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%9C%D0%B8%D0%BD%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2F%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%2F%D0%AD%D0%A6%D0%9F%2F%D0%9D%D0%B0%20%D0%AD%D0%A6%D0%9F%2F9_01_%D0%9F%D0%A0%D0%90%D0%92%D0%98%D0%9B%D0%90%20%D0%9E%D0%9A%D0%90%D0%97%D0%90%D0%9D%D0%98%D0%AF%20%D0%9F%D0%9B%D0%90%D0%A2%D0%9D%D0%AB%D0%A5%20%D0%9E%D0%91%D0%A0%D0%90%D0%97%D0%9E%D0%92%D0%90%D0%A2%D0%95%D0%9B%D0%AC%D0%9D%D0%AB%D0%A5%20%D0%A3%D0%A1%D0%9B%D0%A3%D0%93.pdf&name=9_01_%D0%9F%D0%A0%D0%90%D0%92%D0%98%D0%9B%D0%90%20%D0%9E%D0%9A%D0%90%D0%97%D0%90%D0%9D%D0%98%D0%AF%20%D0%9F%D0%9B%D0%90%D0%A2%D0%9D%D0%AB%D0%A5%20%D0%9E%D0%91%D0%A0%D0%90%D0%97%D0%9E%D0%92%D0%90%D0%A2%D0%95%D0%9B%D0%AC%D0%9D%D0%AB%D0%A5%20%D0%A3%D0%A1%D0%9B%D0%A3%D0%93.pdf"><strong>Порядок
-                            оказания платных образовательных услуг</strong></a></li>
-                <li><a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2FlF7ebwG1Tj2hKSyEQyK%2FWHXSQXgOx5Y%2F0uoHW%2FSmtmCJDS61Fd9kJPjG%2FOc5Pspqq%2FJ6bpmRyOJonT3VoXnDag%3D%3D%3A%2F%D0%A1%D0%B0%D0%B9%D1%82%20%D0%B4%D0%BB%D1%8F%20%D0%9C%D0%B8%D0%BD%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%2F%D0%A1%D0%BE%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D0%BD%D0%B8%D0%B5%20%D1%81%D0%B0%D0%B9%D1%82%D0%B0%2F%D0%AD%D0%A6%D0%9F%2F%D0%9D%D0%B0%20%D0%AD%D0%A6%D0%9F%2F9_02_%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B0%20%D0%BE%D0%B1%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8.pdf&name=9_02_%D0%9E%D0%B1%D1%80%D0%B0%D0%B7%D0%B5%D1%86%20%D0%94%D0%BE%D0%B3%D0%BE%D0%B2%D0%BE%D1%80%D0%B0%20%D0%BE%D0%B1%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B8.pdf&nosw=1"><strong>Проект
-                            договора об оказании платных образовательных услуг</strong></a></li>
-                <li><a
-                        href="https://docs.yandex.ru/docs/view?url=ya-disk-public%3A%2F%2F0W4xtuM0YSTErBX0t2tylAkV97XAqjMy1fBS%2FhdTdEOfP0qm%2FFwSRbWHMK9YvfMhq%2FJ6bpmRyOJonT3VoXnDag%3D%3D&name=%D0%A2%D0%B0%D1%80%D0%B8%D1%84%D1%8B%20%D0%BD%D0%B0%20%D0%BE%D0%B1%D1%80%D0%B0%D0%B7%D0%BE%D0%B2%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5%20%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B8.pdf&nosw=1"><strong>Утвержденная
-                            стоимость обучения</strong></a></li>
-            </ul>
-
-            <p>Стоимость программы подготовки с индивидуальными и корпоративными клиентами договорная.</p>
-            <p>Индивидуальный предприниматель вправе предложить специальную цену на образовательные услуги, на момент
-                заключения договора об образовании (обучение по дополнительным общеобразовательным программам), в
-                соответствии с актуальными предложениями поощрения Заказчиков обучения и маркетинговыми акциями.</p>
-            <p>Предприниматель не реализует и не устанавливал «размера платы, взимаемой с родителей (законных
-                представителей) за присмотр и уход за детьми, осваивающими образовательные программы дошкольного
-                образования в организациях, осуществляющих образовательную деятельность, за содержание детей в
-                образовательной организации, реализующей образовательные программы начального общего, основного общего
-                или среднего общего образования, если в такой образовательной организации созданы условия для проживания
-                обучающихся в интернате, либо за осуществление присмотра и ухода за детьми в группах продленного дня в
-                образовательной организации, реализующей образовательные программы начального общего, основного общего
-                или среднего общего образования».</p>
+        <div id="scholarships" class="page">
+            <h1>Стипендии</h1>
+            <p>Стипендии</p>
         </div>
 
         <div id="budget" class="page">
             <h1>Финансово-хозяйственная деятельность</h1>
-            <p>Объем образовательной деятельности, финансовое обеспечение которой осуществляется за счет бюджетных
-                ассигнований федерального бюджета, бюджетов субъектов Российской Федерации, местных бюджетов, по
-                договорам об оказании платных образовательных услуг за счет средств физических (юридических) лиц:</p>
-            <ul>
-                <li>бюджетных ассигнований федерального бюджета — 0;</li>
-                <li>бюджетов субъектов Российской Федерации — 0;</li>
-                <li>местных бюджетов — 0;</li>
-                <li>по договорам об оказании платных образовательных услуг — 100%;</li>
-            </ul>
-            <p></p>
-            <p>В силу организационно-правовой формы отсутствует план финансово-хозяйственной деятельности.</p>
-            <p>В силу организационно-правовой формы и выбранного режима налогообложения — отсутствует:</p>
-            <p>— о поступлении финансовых и материальных средств по итогам финансового года;</p>
-            <p>— о расходовании финансовых и материальных средств по итогам финансового года.</p>
+            <p>Финансово-хозяйственная деятельность</p>
         </div>
 
         <div id="vacancies" class="page">
-            <h1>Вакантные места для приема (перевода) обучающихся</h1>
-            <p><strong>Общая численность</strong> — до 100 чел.:</p>
-            <ul>
-                <li>бюджетных ассигнований федерального бюджета — 0;</li>
-                <li>бюджетов субъектов Российской Федерации — 0;</li>
-                <li>местных бюджетов — 0;</li>
-                <li>по договорам об оказании платных образовательных услуг — 100%;</li>
-            </ul>
-            <p><strong>Иностранные граждане</strong> — не обучаются.</p>
-        </div>
-
-        <div id="scholarships" class="page">
-            <h1>Стипендии и меры поддержки обучающихся</h1>
-            <p>Стипендии, иные мер социальной, материальной поддержки, общежитие и интернат - не предоставляются
-                обучающимся (воспитанникам).</p>
-        </div>
-
-        <div id="international" class="page">
-            <h1>Международное сотрудничество</h1>
-            <p>Заключенные и планируемые к заключению договора с иностранными и (или) международными организациями по
-                вопросам образования и науки отсутствуют.</p>
-        </div>
-
-        <div id="food" class="page">
-            <h1>Организация питания</h1>
-            <p>Нахождение детей и молодежи на объектах более 4 часов не предусмотрено.</p>
-            <p>Питание детей и молодежи не осуществляется.</p>
+            <h1>Вакантные места для приема</h1>
+            <p>Вакантные места для приема</p>
         </div>
 
         <!-- Остальные страницы по необходимости -->
